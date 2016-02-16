@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/11 17:19:17 by amanchon          #+#    #+#             */
-/*   Updated: 2016/02/07 16:22:11 by amanchon         ###   ########.fr       */
+/*   Created: 2016/02/01 16:56:38 by amanchon          #+#    #+#             */
+/*   Updated: 2016/02/15 17:22:58 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_strtrim(const char *src)
 {
-	unsigned char *c1;
-	unsigned char *c2;
+	const char	*end;
+	char		*res;
 
-	c1 = (unsigned char*)s1;
-	c2 = (unsigned char*)s2;
-	while (n--)
-	{
-		if (*c1 != *c2)
-			return ((int)(*c1 - *c2));
-		c1++;
-		c2++;
-	}
-	return (0);
+	if (!src)
+		return (NULL);
+	while (ft_isspace(*src))
+		src++;
+	end = src + ft_strlen(src) - 1;
+	while (end > src && ft_isspace(*end))
+		end--;
+	end++;
+	if (!(res = (char*)malloc(sizeof(char) * (end - src + 1))))
+		return (NULL);
+	res = ft_memcpy(res, src, (end - src));
+	res[(end - src)] = '\0';
+	return (res);
 }

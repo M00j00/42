@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/11 17:19:17 by amanchon          #+#    #+#             */
-/*   Updated: 2016/02/07 16:22:11 by amanchon         ###   ########.fr       */
+/*   Created: 2016/02/03 17:04:50 by amanchon          #+#    #+#             */
+/*   Updated: 2016/02/10 19:16:41 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "fcntl.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+void	ft_putstr_fd(const char *s, int fd)
 {
-	unsigned char *c1;
-	unsigned char *c2;
-
-	c1 = (unsigned char*)s1;
-	c2 = (unsigned char*)s2;
-	while (n--)
-	{
-		if (*c1 != *c2)
-			return ((int)(*c1 - *c2));
-		c1++;
-		c2++;
-	}
-	return (0);
+	if (!fd)
+		return ;
+	if (s)
+		write(fd, s, ft_strlen(s));
+	return ;
 }

@@ -1,10 +1,25 @@
-void bzero(void *s, unsigned int n)
-{
-	char *ptr;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/11 17:12:29 by amanchon          #+#    #+#             */
+/*   Updated: 2016/02/10 19:04:06 by amanchon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	ptr = s;
+#include "libft.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char *ptr;
+
+	ptr = (unsigned char*)s;
 	while (n--)
 	{
 		*ptr++ = '\0';
 	}
+	return ;
 }

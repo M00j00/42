@@ -1,11 +1,24 @@
-char *ft_strcat(char *dest, const char *src, unsigned int n)
-{
-	int i;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/11 17:15:50 by amanchon          #+#    #+#             */
+/*   Updated: 2016/02/04 21:02:36 by amanchon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	for (i = 0; i < n && *src != '\0'; i++)
-	{
-		dest[ft_strlen(dest) + i] = src[i];
-	}
-	dest[ft_strlen(dest) + i] = '\0';
+#include "libft.h"
+
+char	*ft_strncat(char *dest, const char *src, size_t n)
+{
+	char	*d;
+
+	d = dest + ft_strlen(dest);
+	while (*src && n--)
+		*d++ = *src++;
+	*d = '\0';
 	return (dest);
 }

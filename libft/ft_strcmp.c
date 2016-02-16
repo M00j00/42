@@ -1,7 +1,25 @@
-int ft_strcmp(char *s1, char *s2)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/11 17:21:05 by amanchon          #+#    #+#             */
+/*   Updated: 2016/02/15 17:11:30 by amanchon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	if (ft_strlen(s1) > ft_strlen(s2))
-		return (ft_memcmp(s1, s2, ft_strlen(s2)));
-	else
-		return (ft_memcmp(s1, s2, ft_strlen(s1)));
+	while (*s1 == *s2)
+	{
+		if (*s1 == '\0')
+			return (0);
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
 }

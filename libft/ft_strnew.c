@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/11 17:19:17 by amanchon          #+#    #+#             */
-/*   Updated: 2016/02/07 16:22:11 by amanchon         ###   ########.fr       */
+/*   Created: 2016/01/20 18:08:29 by amanchon          #+#    #+#             */
+/*   Updated: 2016/02/01 16:34:58 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_strnew(size_t size)
 {
-	unsigned char *c1;
-	unsigned char *c2;
+	char *ret;
 
-	c1 = (unsigned char*)s1;
-	c2 = (unsigned char*)s2;
-	while (n--)
-	{
-		if (*c1 != *c2)
-			return ((int)(*c1 - *c2));
-		c1++;
-		c2++;
-	}
-	return (0);
+	ret = (char*)malloc(sizeof(char) * (size + 1));
+	if (!ret)
+		return (NULL);
+	ft_bzero(ret, size + 1);
+	return (ret);
 }
