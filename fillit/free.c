@@ -44,7 +44,7 @@ void	print_list(t_list *l)
 	while (l)
 	{
 	t = (t_tetri*) l->content;
-		printf("----------------------------\n addr : %p\ncontent :\nlettre: %c\n    tetri:\n%s\n%s\n%s\n----------------------------\n     |     \n     |\n     |\n     V \n\n", l, t->letter, t->buffer[0], t->buffer[1], t->buffer[2]);
+		printf("----------------------------\n     addr : %p\ncontent :\n    lettre: %c\n    tetri:\n%s\n%s\n%s\n----------------------------\n     |     \n     |\n     |\n     V \n\n", l, t->letter, t->buffer[0], t->buffer[1], t->buffer[2]);
 		l = l->next;
 	}
 	ft_putchar('\n');

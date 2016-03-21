@@ -15,7 +15,6 @@
 
 char		**tetri(char **tmp, t_point *min, t_point *max, t_tetri *t)
 {
-
 	int		x;
 	int		y;
 	int 	var;
@@ -38,7 +37,6 @@ char		**tetri(char **tmp, t_point *min, t_point *max, t_tetri *t)
 		x++;
 	}
 	buff[x] = NULL;
-	printf("Tetri reduced\n");
 	return (buff);
 }
 
@@ -103,9 +101,8 @@ t_list		*create_list(char *str)
 	char		**tab;
 	char		c;
 
+	list = NULL;
 	c = 'A';
-	list = ft_lstnew(NULL, 42);
-	printf("List created\n");
 	tab = ft_strsplit(str, '\t');
 	//while (tab[i++ + 1])
 	//	;
@@ -115,11 +112,15 @@ t_list		*create_list(char *str)
 		if (!(t = new_tetri(*tab++, c++)))
 			//lstdel, avec f(free tetri)
 			return (NULL);
-		ft_lstadd(&list, ft_lstnew(t, sizeof(t_tetri)));//add a la fin
+		if (!(list))
+			list = ft_lstnew(t, sizeof(t_tetri));
+		else
+			ft_lstadd(&list, ft_lstnew(t, sizeof(t_tetri)));
 		printf("Element added to list\n---------\n");
 	}
 	return (list);
 }
+
 
 void	ft_lstadd_end(t_list **alst, t_list *new_node)
 {

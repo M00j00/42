@@ -28,7 +28,7 @@ int		try_to_fill(t_map *m, t_list *l)
 	t_tetri		*t;
 	t_point		*p;
 
-	if (l->next == NULL)
+	if (l == NULL)
 		return (1);
 	p = new_point(0, 0);
 	t = (t_tetri*)l->content;
@@ -40,8 +40,8 @@ int		try_to_fill(t_map *m, t_list *l)
 			//printf("[%d,%d]\n", p->x, p->y);
 			if (place_tetri(t, m, p))
 			{
-				print_map(m);
-				ft_putstr("\n");
+				//print_map(m);
+				//ft_putstr("\n");
 				if (try_to_fill(m, l->next))
 					return (1);
 				set_value(t, m, p, '.');
@@ -74,9 +74,9 @@ t_map	*resolve(t_list *l)
 	while (!try_to_fill(m, l))
 	{
 		print_map(m);
-	//	getchar();
+		getchar();
 		free(m);
-		m = new_map(size++);
+		m = new_map(++size);
 	}
 	return (m);
 }

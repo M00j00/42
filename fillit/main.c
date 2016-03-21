@@ -54,6 +54,23 @@ char	*read_tetri(char *filename)
 	close(fd);
 	return (str);
 }
+
+t_list	*reverse_list(t_list *l)
+{
+	t_list *start;
+	t_list	*tmp;
+
+	start = NULL;
+	while (l)
+	{
+		tmp = l->next;
+		l->next = start;
+		start = l;
+		l = tmp;
+	}
+	return (start);
+}
+
 int		main(int argc, char **argv)
 {
 	t_list		*tetri_list;
@@ -67,8 +84,8 @@ int		main(int argc, char **argv)
 		return (1);
 	}
 	data = split_args(read_tetri(argv[1]));
-	printf("Tetriminons lu et split:\n%s\n--------------\n", data);
-	if (!(tetri_list = create_list(data)))
+	//printf("Tetriminons lu et split:\n%s\n--------------\n", data);
+	if (!(tetri_list = reverse_list(create_list(data))))
 	{
 		ft_putendl_fd("error\n", 2);
 		return (1);
@@ -89,6 +106,6 @@ int		main(int argc, char **argv)
 	//print_map(map);
 	//printf("--------------\n--------------------\n");
 	
-//	print_map(resolve(tetri_list));
+	print_map(resolve(tetri_list));
 	return (0);
 }
