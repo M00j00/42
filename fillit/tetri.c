@@ -6,14 +6,14 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 15:24:44 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/16 16:36:30 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:56:32 by embailla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fillit.h"
 
-char		**tetri(char **tmp, t_point *min, t_point *max, t_tetri *t)
+char		**tetri(char **tmp, t_point *min, t_tetri *t)
 {
 	int		x;
 	int		y;
@@ -48,8 +48,8 @@ void		get_dim(t_tetri *t, t_point *min, t_point *max)
 	x = 0;
 	while (t->tmp[x])
 	{
-		y = 0;
-		while (t->tmp[x][y])
+		y = -1;
+		while (t->tmp[x][++y])
 		{
 			if (t->tmp[x][y] == '#')
 			{
@@ -62,7 +62,6 @@ void		get_dim(t_tetri *t, t_point *min, t_point *max)
 				if (max->y < y)
 					max->y = y;
 			}
-			y++;
 		}
 		x++;
 	}
@@ -78,7 +77,6 @@ t_tetri		*new_tetri(char *str, char c)
 
 	if (!(verif_map(str)))
 		return (NULL);
-	printf("Tetri valide\n");
 	if (!(t = (t_tetri*)malloc(sizeof(t_tetri))))
 		return (NULL);
 	if (!(max = new_point(0, 0)))
@@ -88,9 +86,8 @@ t_tetri		*new_tetri(char *str, char c)
 	t->letter = c;
 	t->tmp = ft_strsplit(str, '\n');
 	get_dim(t, min, max);
-	t->buffer = tetri(t->tmp, min, max, t);
+	t->buffer = tetri(t->tmp, min, t);
 	//free tmp & point
-	printf("New tetri\n");
 	return (t);
 }
 
@@ -103,10 +100,9 @@ t_list		*create_list(char *str)
 
 	list = NULL;
 	c = 'A';
+	if (str[ft_strlen(str) - 1] == '\t')
+		return (NULL);
 	tab = ft_strsplit(str, '\t');
-	//while (tab[i++ + 1])
-	//	;
-	//printf("go to last tetri\n");
 	while (*tab)
 	{
 		if (!(t = new_tetri(*tab++, c++)))
@@ -116,21 +112,6 @@ t_list		*create_list(char *str)
 			list = ft_lstnew(t, sizeof(t_tetri));
 		else
 			ft_lstadd(&list, ft_lstnew(t, sizeof(t_tetri)));
-		printf("Element added to list\n---------\n");
 	}
 	return (list);
-}
-
-
-void	ft_lstadd_end(t_list **alst, t_list *new_node)
-{
-	t_list		*tmp;
-
-	tmp = *alst;
-	if(new_node)
-	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new_node;
-	}
 }

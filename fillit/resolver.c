@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:23:20 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/15 18:58:19 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:23:10 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		get_mini_map_size(int nb)
 	int		size;
 
 	nb *= 4;
-	size = 0;
+	size = 2;
 	while (size * size < nb)
 		size++;
 	return (size);
@@ -37,11 +37,8 @@ int		try_to_fill(t_map *m, t_list *l)
 		p->x = 0;
 		while (p->x + t->width < m->size + 1)
 		{
-			//printf("[%d,%d]\n", p->x, p->y);
 			if (place_tetri(t, m, p))
 			{
-				//print_map(m);
-				//ft_putstr("\n");
 				if (try_to_fill(m, l->next))
 					return (1);
 				set_value(t, m, p, '.');
@@ -68,15 +65,17 @@ int		count_elem(t_list *l)
 
 t_map	*resolve(t_list *l)
 {
-	int		size = get_mini_map_size(count_elem(l));
-	t_map	*m = new_map(size);
-	printf("resolving.....\n");
+	int		size;
+	t_map	*m;
+
+	size = get_mini_map_size(count_elem(l));
+	m = new_map(size);
 	while (!try_to_fill(m, l))
 	{
-		print_map(m);
-		getchar();
 		free(m);
 		m = new_map(++size);
 	}
+	if (m == NULL)
+		return (NULL);
 	return (m);
 }

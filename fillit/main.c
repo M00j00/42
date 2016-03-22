@@ -6,14 +6,14 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 15:34:57 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/16 16:37:27 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:08:54 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <fcntl.h>
 
-char	*split_args(char *s)
+char		*split_args(char *s)
 {
 	char		*tmp;
 	char		*ret;
@@ -31,7 +31,8 @@ char	*split_args(char *s)
 	}
 	return (ret);
 }
-char	*read_tetri(char *filename)
+
+char		*read_tetri(char *filename)
 {
 	int		rbytes;
 	char	*str;
@@ -55,9 +56,9 @@ char	*read_tetri(char *filename)
 	return (str);
 }
 
-t_list	*reverse_list(t_list *l)
+t_list		*reverse_list(t_list *l)
 {
-	t_list *start;
+	t_list	*start;
 	t_list	*tmp;
 
 	start = NULL;
@@ -71,41 +72,22 @@ t_list	*reverse_list(t_list *l)
 	return (start);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_list		*tetri_list;
 	char		*data;
-	//t_map		*map = new_map(4);
-	int			i,j;
 
 	if (argc != 2)
 	{
-		ft_putendl_fd("usage: ./fillit sample_file\n", 2);
+		ft_putendl_fd("usage: ./fillit sample_file\n", 1);
 		return (1);
 	}
 	data = split_args(read_tetri(argv[1]));
-	//printf("Tetriminons lu et split:\n%s\n--------------\n", data);
 	if (!(tetri_list = reverse_list(create_list(data))))
 	{
-		ft_putendl_fd("error\n", 2);
+		ft_putendl_fd("error\n", 1);
 		return (1);
 	}
-	print_list(tetri_list);
-	/*i = 0;
-	while (i < map->size - 1)
-	{
-		j = 0;
-		while (j < map->size - 1)
-		{
-			place_tetri((t_tetri*)tetri_list->content, map, new_point(i,j));
-			j++;
-		}
-		i++;
-	}*/
-	//place_tetri((t_tetri*)tetri_list->content, map, new_point(0,0));
-	//print_map(map);
-	//printf("--------------\n--------------------\n");
-	
 	print_map(resolve(tetri_list));
 	return (0);
 }

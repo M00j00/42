@@ -6,8 +6,7 @@
 /*   By: embailla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 14:52:44 by embailla          #+#    #+#             */
-/*   Updated: 2016/03/16 16:35:28 by amanchon         ###   ########.fr       */
-/*   Updated: 2016/03/12 18:36:39 by embailla         ###   ########.fr       */
+/*   Updated: 2016/03/22 17:48:15 by embailla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +14,29 @@
 
 int			verif_map(char *ptr)
 {
+	int		var;
 	int		i;
-	char	*s;
 
 	i = 0;
+	var = 0;
 	while (ptr[i] != '\0')
 	{
+		if (ptr[i] == '#')
+			var++;
 		if (ptr[i] != '.' && ptr[i] != '\n' && ptr[i] != '#')
 			return (0);
 		if (((i % 4) == 4) && ptr[i] != '\n')
 			return (0);
 		i++;
 	}
-	printf("verif1 nb = %d\n", i);
+	if (var != 4)
+		return (0);
 	if (i != 20)
 		return (0);
-	printf("verif2");
 	if (!(verif_tetri(ptr)))
 		return (0);
-	printf("verif3");
 	if (!(verif_tetri(ptr)))
 		return (0);
-	printf("verif4");
 	return (1);
 }
 

@@ -6,13 +6,14 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:23:25 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/16 15:52:57 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/03/22 18:17:50 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 # include "libft/libft.h"
+# include <stdio.h>
 
 typedef struct		s_point
 {
@@ -36,7 +37,7 @@ typedef struct		s_tetri
 
 t_map		*new_map(int size);
 void		free_map(t_map **map);
-void		print_map(t_map *map);
+int			print_map(t_map *map);
 int			get_mini_map_size(int nb_tetri);
 t_point		*new_point(int x, int y);
 t_tetri		*new_tetri(char *str, char c);
@@ -52,6 +53,6 @@ void		get_dim(t_tetri *t, t_point *min, t_point *max);
 int			place_tetri(t_tetri *t, t_map *m, t_point *p);
 int			set_value(t_tetri *t, t_map *m, t_point *p, char c);
 void		print_list(t_list *l);
-void		ft_lstadd_end(t_list **alst, t_list *new_node);
+void		free_point(t_point *p);
 
 #endif
