@@ -6,7 +6,7 @@
 #    By: amanchon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/05 07:20:04 by amanchon          #+#    #+#              #
-#    Updated: 2016/09/26 17:43:24 by amanchon         ###   ########.fr        #
+#    Updated: 2016/10/05 20:36:11 by amanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,16 @@ $(NAME):
 %.o: %.c
 	@$(CC) $(FLAGS) -c $^ -o $@
 
-clean: 
+clean:
+	@cd libft/ && $(MAKE) clean
+	@cd minilibx/ && $(MAKE) clean
 	@rm -f $(OBJ)
 
 fclean: clean
+	#@cd libft/ && $(MAKE) fclean
+	#@cd minilibx/ && $(MAKE) fclean
+	rm -f ../includes/libft.a
+	rm -f ../includes/libmlx.a
 	@rm -f $(NAME)
 
 re: fclean all
