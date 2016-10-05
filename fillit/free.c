@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,23 +6,23 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 18:10:34 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/16 15:52:17 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/04/04 17:46:44 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	del_tetri(void *content, size_t size)
+void	del_tetri(t_tetri *t)
 {
 	int		i;
-	t_tetri	*t;
 
+	if (!t)
+		return ;
 	i = 0;
-	t = (t_tetri*)content;
-	size = 0;
 	while (i < t->height)
 	{
 		ft_strdel(&t->buffer[i]);
+		i++;
 	}
 	free(t->buffer);
 	t->buffer = NULL;
@@ -33,24 +32,19 @@ void	del_tetri(void *content, size_t size)
 
 void	free_list(t_list *l)
 {
-	void (*del)(void*, size_t);
-	del = del_tetri;
-	ft_lstdel(&l, *del);
-}
-/*
-void	print_list(t_list *l)
-{
-	t_tetri		*t;
+	t_list	*tmp;
+	t_tetri	*t;
 
 	while (l)
 	{
-		t = (t_tetri*) l->content;
-		printf("----------------------------\n     addr : %p\ncontent :\n    lettre: %c\n    tetri:\n%s\n%s\n%s\n%s\n----------------------------\n     |     \n     |\n     |\n     V \n\n", l, t->letter, t->buffer[0], t->buffer[1], t->buffer[2], t->buffer[3]);
-		l = l->next;
+		tmp = l->next;
+		t = (t_tetri*)l->content;
+		del_tetri(t);
+		ft_memdel((void**)&l);
+		l = tmp;
 	}
-	ft_putchar('\n');
 }
-*/
+
 t_point	*new_point(int x, int y)
 {
 	t_point	*p;
@@ -65,8 +59,5 @@ t_point	*new_point(int x, int y)
 void	free_point(t_point *p)
 {
 	if (p)
-	{
-		free(p);
-		p = NULL;
-	}
+		ft_memdel((void**)&p);
 }

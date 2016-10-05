@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 15:23:20 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/22 18:23:10 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/04/04 17:54:33 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		try_to_fill(t_map *m, t_list *l)
 	while (p->y + t->height < m->size + 1)
 	{
 		p->x = 0;
-		while (p->x + t->width < m->size + 1)
+		while ((p->x) + t->width < m->size + 1)
 		{
 			if (place_tetri(t, m, p))
 			{
@@ -72,10 +72,8 @@ t_map	*resolve(t_list *l)
 	m = new_map(size);
 	while (!try_to_fill(m, l))
 	{
-		free(m);
+		free_map(&m);
 		m = new_map(++size);
 	}
-	if (m == NULL)
-		return (NULL);
 	return (m);
 }

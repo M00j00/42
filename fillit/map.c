@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 13:41:16 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/22 18:23:46 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/04/04 17:55:37 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			print_map(t_map *map)
 		ft_putendl(map->data[x]);
 		x++;
 	}
+	free_map(&map);
 	return (1);
 }
 
@@ -82,7 +83,7 @@ int			place_tetri(t_tetri *t, t_map *m, t_point *p)
 		while (j < t->height)
 		{
 			if ((t->buffer[j][i] == '#')
-					&& (m->data[p->y + j][p->x + i] != '.'))
+				&& (m->data[p->y + j][p->x + i] != '.'))
 				return (0);
 			j++;
 		}

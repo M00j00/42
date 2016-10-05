@@ -6,7 +6,7 @@
 #    By: amanchon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/27 16:29:55 by amanchon          #+#    #+#              #
-#    Updated: 2016/02/15 17:50:18 by amanchon         ###   ########.fr        #
+#    Updated: 2016/04/03 14:16:15 by amanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,16 +79,16 @@ OBJ		=	$(SRC:.c=.o)
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $^ -o $@
+	@$(CC) $(FLAGS) -c $^ -o $@
 
 clean: 
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all

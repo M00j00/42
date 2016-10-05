@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 15:34:57 by amanchon          #+#    #+#             */
-/*   Updated: 2016/03/22 18:08:54 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/04/04 18:02:07 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char		*split_args(char *s)
 		}
 		tmp++;
 	}
+	ft_strdel(&s);
 	return (ret);
 }
 
@@ -41,7 +42,7 @@ char		*read_tetri(char *filename)
 	char	*tmp;
 
 	str = ft_strnew(1);
-	if (!(buff = (char*)malloc(sizeof(char) * 8)))
+	if (!(buff = (char*)malloc(sizeof(char) * 9)))
 		return (NULL);
 	fd = open(filename, O_RDONLY);
 	while ((rbytes = read(fd, buff, 8)) > 0)
@@ -88,6 +89,7 @@ int			main(int argc, char **argv)
 		ft_putendl_fd("error\n", 1);
 		return (1);
 	}
+	ft_strdel(&data);
 	print_map(resolve(tetri_list));
 	return (0);
 }

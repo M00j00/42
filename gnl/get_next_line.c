@@ -1,32 +1,35 @@
-/**
- * @todo:
- * header 42
- * ?linked list pour sauver les char lus non cpd? a voir
- * 42filechecker
- * valgrind
- * deplacer main test
- * rechecker tout encore et encore
-**/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/04 18:19:57 by amanchon          #+#    #+#             */
+/*   Updated: 2016/10/04 22:06:21 by amanchon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		get_line_len(int fd, t_storage *s)
+static int		get_line_len(char *str)
 {
 	int					i;
 
 	i = 0;
-	while (s->memory[fd][i] != '\n' && s->memory[fd][i] != '\0')
+	while (*str != '\n' && *str != 13 && *str++ != '\0')
 		i++;
 	return (i);
 }
 
-static void		read_next_line(int fd , t_storage *s)
+static void		read_next_line(int fd, t_storage *s)
 {
 	char				*tmp;
 
 	if (!(s->memory[fd]))
 		s->memory[fd] = ft_strnew(1);
-	while (!(ft_strchr(s->memory[fd], '\n'))
+	while ((!(ft_strchr(s->memory[fd], '\n'))
+		&& !(ft_strchr(s->memory[fd], 13)))
 		&& (s->nb_bytes = read(fd, s->buffer, BUFF_SIZE)) > 0)
 	{
 		s->buffer[s->nb_bytes] = '\0';
@@ -40,11 +43,13 @@ static void		read_next_line(int fd , t_storage *s)
 static int		manage_memory(int fd, t_storage *s)
 {
 	char				*tmp;
+	int					linelen;
 
-	if (ft_strchr(s->memory[fd], '\n'))
+	if ((linelen = get_line_len(s->memory[fd])) > 0
+		|| linelen < (int)ft_strlen(s->memory[fd]))
 	{
 		tmp = s->memory[fd];
-		s->memory[fd] = ft_strdup(ft_strchr(s->memory[fd], '\n') +1);
+		s->memory[fd] = ft_strdup(s->memory[fd] + linelen + 1);
 		ft_strdel(&tmp);
 		return (1);
 	}
@@ -55,32 +60,13 @@ int				get_next_line(const int fd, char **line)
 {
 	static t_storage	storage;
 
-	if (fd < 0 || fd > MAXFD || line == NULL)
+	if (fd < 0 || fd > MAXFILE || line == NULL)
 		return (-1);
 	if (!(storage.buffer = (char*)malloc(sizeof(char) * BUFF_SIZE + 1)))
 		return (-1);
 	read_next_line(fd, &storage);
 	if (storage.nb_bytes == -1)
 		return (-1);
-	*line = ft_strsub(storage.memory[fd], 0, get_line_len(fd, &storage));
+	*line = ft_strsub(storage.memory[fd], 0, get_line_len(storage.memory[fd]));
 	return (manage_memory(fd, &storage));
-}
-
-int main()
-{
-	char *line;	
-	int fd[4];
-	int i = 0;
-
-	fd[0] = open("text", O_RDONLY);
-	fd[1] = open("test", O_RDONLY);
-	fd[2] = open("tect", O_RDONLY);
-	fd[3] = open("tent", O_RDONLY);
-	while (get_next_line(fd[i], &line) > 0)
-	{
-		printf("%d >> %s\n", i, line);
-		i = (i + 5) % 4;
-		free(line);
-	}
-	return (0);
 }
