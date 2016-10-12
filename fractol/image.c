@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 04:39:03 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/11 17:54:06 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/10/12 19:35:57 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int			get_color(t_env *e)
 
 	i = (e->iter * 1000) / e->max_iter;
 	color = 0x00000000;
-	color += (i % RGB_MAX) * e->theme[0]
-		+ ((i % RGB_MAX) * e->theme[1] << 8)
-		+ ((i % RGB_MAX) * e->theme[2] << 16);
+	color += (i % RGB_MAX) * e->theme[2]
+		+ ((i % RGB_MAX) * e->theme[0] << 8)
+		+ ((i % RGB_MAX) * e->theme[1] << 16);
 
 	return (color);
 }
@@ -39,13 +39,13 @@ double		screen_to_world_coord(t_env *e, int x, int mode, int fractal)
 	return (-1);
 }
 
-void		img_put_pixel(t_env *e, t_point *p, int color)
+void		img_put_pixel(t_env *e, int x, int y, int color)
 {
 	int		byte;
 
-	byte = p->y * e->img->line_size
-		+ (e->img->bpp/8) * p->x;
-	if (p->y < W_H && p->x < W_W && p->y  > 0 && p->x > 0)
+	byte = y * e->img->line_size
+		+ (e->img->bpp/8) * x;
+	if (y < W_H && x < W_W && y  > 0 && x > 0)
 	{
 		e->img->pxl[byte] = color;
 		e->img->pxl[++byte] = color >> 8;
