@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 15:24:44 by amanchon          #+#    #+#             */
-/*   Updated: 2016/04/04 17:57:59 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/10/15 22:43:52 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ t_tetri		*new_tetri(char *str, char c)
 	t_point		*min;
 	t_tetri		*t;
 
-	if (!(verif_map(str)))
-		return (NULL);
 	if (!(t = (t_tetri*)malloc(sizeof(t_tetri))))
 		return (NULL);
 	if (!(max = new_point(0, 0)))
@@ -85,6 +83,8 @@ t_tetri		*new_tetri(char *str, char c)
 		return (NULL);
 	t->letter = c;
 	t->tmp = ft_strsplit(str, '\n');
+	if (!(check_tetri(t->tmp)))
+		return (NULL);
 	get_dim(t, min, max);
 	t->buffer = crop_tetri(t->tmp, min, t);
 	return (t);
@@ -97,6 +97,8 @@ t_list		*create_list(char *str)
 	char		**tab;
 	char		c;
 
+	if (!(check_tab(str)))
+		return (NULL);
 	list = NULL;
 	c = 'A';
 	if (str[ft_strlen(str) - 1] == '\t')
