@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 04:24:15 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/12 23:09:35 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/10/18 18:22:44 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 # include "includes/libft.h"
 # include "includes/mlx.h"
 /*
- * TAILLE DE KA FENETRE
+ * TAILLE DE LA FENETRE
  */
 # define W_H 1000
 # define W_W 1000
 /*
- * CONSTANTES MANDEL
+ * CONSTANTES FRACTALS
  */
 # define MANDEL_XMIN -2.1
 # define MANDEL_YMIN -1.2
@@ -69,11 +69,15 @@ typedef struct		s_img
 	char			*pxl;
 }					t_img;
 
-typedef struct		s_point
+typedef struct		s_line_data
 {
-	int				x;
-	int				y;
-}					t_point;
+	int				dx;
+	int				dy;
+	int				ix;
+	int				iy;
+	int				err;
+	int				e;
+}					t_line_data;
 
 typedef struct		s_env
 {
@@ -90,16 +94,21 @@ typedef struct		s_env
 	int				btn5;
 	int				btn4;
 	int				theme[3];
-	int				xoff;
-	int				yoff;
+	int				N;
 	int				jzoom;
 	int				wheelock;
+	int				color;
+	double			xoff;
+	double			yoff;
+	double			xmid;
+	double			ymid;
+	double			range;
 	double			pxlW;
 	double			pxlH;
 	double			mandelX;
 	double			mandelY;
-	double			juliaX;
-	double			juliaY;
+	double			juliaR;
+	double			juliaI;
 	double			mandelXMax;
 	double			mandelYMax;
 	double			mandelYMin;
@@ -114,14 +123,16 @@ typedef struct		s_env
 t_img				*new_img(t_env *e, int w, int h);
 void				img_put_pixel(t_env *e, int x, int y, int color);
 double				screen_to_world_coord(t_env *e, int x, int mode, int fractal);
-void				draw_mandel(t_env *e);
 void				init_fractal(t_env *e);
-void				mandelbrot(t_env *e);
+void				draw_mandel(t_env *e);
 void				draw_julia(t_env *e);
+void				draw_burning_ship(t_env *e);
 int					get_color(t_env *e);
 int					key_events(int keycode, t_env *e);
 int					mouse_events(int btn, int x, int y, t_env *e);
 int					refresh_window(t_env *e);
 int					btn_press(int btn, int x, int y, t_env *e);
 int					btn_release(int btn, int x, int y, t_env *e);
+t_line_data			*new_line_data(t_env *e, int x, int y, int x2, int y2);
+
 #endif

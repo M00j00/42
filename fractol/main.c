@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 04:23:59 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/12 23:16:12 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/10/15 21:54:57 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int			main(int argc, char **argv)
 	}
 	if (!(e = init_env(get_param(argv[1]))))
 		return (1);
+	ft_putnbr(e->fractal);
 	mlx_hook(e->wnd, ButtonPress, ButtonPressMask, btn_press, e);
 	mlx_hook(e->wnd, ButtonRelease, ButtonReleaseMask, btn_release, e);
 	//mlx_mouse_hook(e->wnd, mouse_events, e);

@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 04:39:03 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/12 19:35:57 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/10/18 18:23:21 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int			get_color(t_env *e)
 	i = (e->iter * 1000) / e->max_iter;
 	color = 0x00000000;
 	color += (i % RGB_MAX) * e->theme[2]
-		+ ((i % RGB_MAX) * e->theme[0] << 8)
-		+ ((i % RGB_MAX) * e->theme[1] << 16);
+		+ ((i % RGB_MAX) * e->theme[1] << 8)
+		+ ((i % RGB_MAX) * e->theme[0] << 16);
 
 	return (color);
 }
@@ -51,6 +51,31 @@ void		img_put_pixel(t_env *e, int x, int y, int color)
 		e->img->pxl[++byte] = color >> 8;
 		e->img->pxl[++byte] = color >> 16;
 	}
+}
+
+void		img_draw_line(t_env *e, int x, int y, int x2, int y2)
+{
+	t_line_data *l;
+
+	l = new_line_data(e, x, y, x2, y2);
+	while (42)
+	{
+		img_put_pixel(e,x, y, e->color);
+		if (x == x2 && y == y2)
+			break ;
+		l->e = l->err;
+		if (l->e > -l->dx)
+		{
+			l->err -= l->dy;
+			x += l->ix;
+		}
+		if (l->e < l->dy)
+		{
+			l->err += l->dy;
+			y += l->iy;
+		}
+	}
+	//free
 }
 
 t_img		*new_img(t_env *e, int width, int height)
