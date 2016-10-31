@@ -1,23 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/20 17:37:27 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/31 19:46:05 by amanchon         ###   ########.fr       */
+/*   Created: 2016/10/31 22:24:33 by amanchon          #+#    #+#             */
+/*   Updated: 2016/10/31 22:26:59 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "wolf3d.h"
 
-void	*ft_memalloc(size_t size)
-{
-	void	*ret;
 
-	if (!(ret = malloc(size)))
-		return (NULL);
-	bzero(ret, size);
-	return (ret);
-}

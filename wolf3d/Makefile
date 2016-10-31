@@ -6,7 +6,7 @@
 #    By: amanchon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/28 23:00:04 by amanchon          #+#    #+#              #
-#    Updated: 2016/10/28 23:02:36 by amanchon         ###   ########.fr        #
+#    Updated: 2016/10/31 22:30:27 by amanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	wolf3d
 FLAGS	=	-Wall -Wextra
 LIB		=	-L./includes -lft -lmlx -framework OpenGL -framework AppKit
 CC		=	gcc
-SRC		=	main.c image.c matrix_helper.c matrix_op.c
+SRC		=	main.c image.c texture.c raycaster.c hooks.c
 OBJ		=	$(SRC:.c=.o)
 
 all:		$(NAME)
