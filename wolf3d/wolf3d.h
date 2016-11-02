@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/28 22:22:40 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/31 22:35:07 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/02 06:33:13 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,7 @@ void			img_draw_line(t_env *e, int [2], int b[2], int color);
 void			cast_ray(t_env *e, int x);
 void			draw_texture(t_env *e);
 void			draw_view(t_env *e);
+void			init_texture(t_env *e);
+
+void			test_tex(t_env *e);
 #endif

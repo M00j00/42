@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 19:52:11 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/31 22:35:06 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/02 02:47:38 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		img_draw_line(t_env *e, int x, int y, int x2, int y2)
 void		calc_line_limits(t_env *e)
 {
 	e->line_h = (int) (WIN_H / e->perp_dist);
+//	printf("line h %d perp %f ", e->line_h, e->perp_dist);
 	e->line_lim[0] = -e->line_h / 2 + WIN_H / 2;
 	e->line_lim[1] = e->line_h / 2 + WIN_H / 2;
 	if (e->line_lim[0] < 0)
@@ -69,9 +70,9 @@ void		draw_view(t_env *e)
 		cast_ray(e, e->screen_coord[0]);
 		printf("cast_ray x = %d\n", e->screen_coord[0]);
 		calc_line_limits(e);
-		printf("calc_line_limits %d, %d\n", e->line_lim[0], e->line_lim[1]);
+		printf("calc_line_limits [%d, %d]\n", e->line_lim[0], e->line_lim[1]);
 		draw_texture(e);
-		printf("draw_texture\n");
+	//	printf("draw_texture\n");
 		e->screen_coord[0]++;
 	}
 }

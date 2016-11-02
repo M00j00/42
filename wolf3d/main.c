@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/28 23:02:46 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/31 22:30:57 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/02 06:47:51 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,21 @@ void		init_map(t_env *e)
 		while (x < MAP_SIZE)
 		{
 			if (x == MAP_SIZE - 1 || x == 0 || y == MAP_SIZE - 1 || y == 0)
-				e->map[y][x] = 1;
-			else if (x == 2 && y == 2)
+				e->map[x][y] = 1;
+			else if (x % 2 && y % 2)
 				e->map[y][x] = 2;
+			//else if (x % 3 && y % 3)
+			//	e->map[y][x] = 3;
 			else
-				e->map[y][x] = 0;
+				e->map[x][y] = 0;
+			ft_putnbr(e->map[x][y]);
 			x++;
 		}
+		ft_putchar('\n');
 		y++;
 	}
-	/*e->map = {
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1},
-		{1, 1, 1, 1, 1, 1, 1, 1}
-	};*/
 }
+
 t_env		*init_env()
 {
 	t_env		*e;
@@ -54,13 +49,14 @@ t_env		*init_env()
 	if (!(e->wnd = mlx_new_window(e->mlx, WIN_W, WIN_H, "WOLF42D")))
 		return (NULL);
 	e->img = new_img(e, WIN_W, WIN_H);
-	e->pos[0] = 1;
-	e->pos[1] = 1;
-	e->dir[0] = -1.0;
+	e->pos[0] = 4;
+	e->pos[1] = 4;
+	e->dir[0] = 1.0;
 	e->dir[1] = 0.0;
 	e->plan[0] = 0;
 	e->plan[1] = 0.66;
 	init_map(e);
+	init_texture(e);
 	return (e);
 }
 
@@ -71,6 +67,7 @@ int			main(void)
 	if (!(e = init_env()))
 		return (1);
 	draw_view(e);
+	//test_tex(e);
 	mlx_put_image_to_window(e->mlx, e->wnd, e->img->ptr, 0, 0);
 	mlx_loop(e->mlx);
 	return (0);
