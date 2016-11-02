@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 19:06:38 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/02 06:44:10 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/02 07:27:38 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		draw_texture(t_env *e)
 		if (e->side == 1)
 			e->color = (e->color >> 1) & 835511;
 		img_put_pixel(e, e->screen_coord[0], e->line_lim[0], e->color);
-		printf("pixel: [%d, %d]\tcolor: %d\ttexX: %d\ttexY: %d\n", e->screen_coord[0], e->screen_coord[1], e->color, e->tex[0], e->tex[1]);
+		printf("pixel: [%d, %d]\tcolor: %d\ttexX: %d\ttexY: %d\n", e->screen_coord[0], e->line_lim[0], e->color, e->tex[0], e->tex[1]);
 		e->line_lim[0]++;
 	}
 }
