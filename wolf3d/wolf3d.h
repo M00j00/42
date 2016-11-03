@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/28 22:22:40 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/02 06:33:13 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/03 16:42:08 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 # define WOLF3D_H
 # include "includes/libft.h"
 # include "includes/mlx.h"
+# include "includes/lodepng.h"
 # include <math.h>
+# include <fcntl.h>
 
-# define WIN_W 800
-# define WIN_H 800
+# define WIN_W 1800
+# define WIN_H 1800
 # define TEX_H 64
 # define TEX_W 64
-# define MAP_SIZE 8
+# define MAP_SIZE 50
 /*
  *KEYBOARD
  */
+# define KEY_PRESS 2
+# define KEY_RELEASE 3
+# define KEY_PRESS_MASK (1L<<0)
+# define KEY_RELEASE_MASK (1L<<1)
 # define RIGHT 124
 # define LEFT 123
 # define UP 126
@@ -31,7 +37,8 @@
 
 typedef double		t_darr[2];
 typedef int			t_iarr[2];
-typedef int			t_textures[3][TEX_H * TEX_W];
+typedef int			t_textures[6][TEX_H * TEX_W];
+
 typedef struct		s_img
 {
 	void		*ptr;
@@ -46,8 +53,10 @@ typedef struct		s_env
 	void		*mlx;
 	void		*wnd;
 	t_img		*img;
+	t_img		texture[8];
 	t_textures	textures;
 	int			map[MAP_SIZE][MAP_SIZE];
+	int			key_state[4];
 	t_darr		pos;
 	t_darr		dir;
 	t_darr		plan;
@@ -74,11 +83,14 @@ typedef struct		s_env
 
 t_img			*new_img(t_env *e, int w, int h);
 void			img_put_pixel(t_env *e, int x, int y, int color);
-void			img_draw_line(t_env *e, int [2], int b[2], int color);
 void			cast_ray(t_env *e, int x);
 void			draw_texture(t_env *e);
 void			draw_view(t_env *e);
 void			init_texture(t_env *e);
+int				key_hook(int key, t_env *e);
+int				refresh_window(t_env *e);
+void			init_map(t_env *e);
 
+void			print_map(t_env *e);
 void			test_tex(t_env *e);
 #endif

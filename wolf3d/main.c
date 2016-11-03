@@ -6,37 +6,24 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/28 23:02:46 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/02 06:47:51 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/03 16:48:44 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wolf3d.h"
-void		init_map(t_env *e)
-{
-	int			x;
-	int			y;
+/*TODO
+ *
+ * fix les textures
+ * add des mechants/objet (si color == noir ne pas display)
+ * implementer les etats des touches key down et key up
+ * implementer les stats des personnages
+ * add une arme/tirer
+ * action pour add/remove des blocs de la carte (!=1)
+ *
+ *CHASSE AU MALLOC ATTRAPEZ LES TOUS!!
+ *
+ */
 
-	y = 0;
-	while (y < MAP_SIZE)
-	{
-		x = 0;
-		while (x < MAP_SIZE)
-		{
-			if (x == MAP_SIZE - 1 || x == 0 || y == MAP_SIZE - 1 || y == 0)
-				e->map[x][y] = 1;
-			else if (x % 2 && y % 2)
-				e->map[y][x] = 2;
-			//else if (x % 3 && y % 3)
-			//	e->map[y][x] = 3;
-			else
-				e->map[x][y] = 0;
-			ft_putnbr(e->map[x][y]);
-			x++;
-		}
-		ft_putchar('\n');
-		y++;
-	}
-}
+#include "wolf3d.h"
 
 t_env		*init_env()
 {
@@ -49,12 +36,15 @@ t_env		*init_env()
 	if (!(e->wnd = mlx_new_window(e->mlx, WIN_W, WIN_H, "WOLF42D")))
 		return (NULL);
 	e->img = new_img(e, WIN_W, WIN_H);
-	e->pos[0] = 4;
-	e->pos[1] = 4;
-	e->dir[0] = 1.0;
-	e->dir[1] = 0.0;
+	e->pos[0] = 15;
+	e->pos[1] = 15;
+	e->dir[0] = 1;
+	e->dir[1] = 1;
 	e->plan[0] = 0;
 	e->plan[1] = 0.66;
+	e->movespd = 0.3;
+	e->rotspd = 0.05;
+	e->key_state[0] = e->key_state[1] = e->key_state[2] = e->key_state[3] = 0;
 	init_map(e);
 	init_texture(e);
 	return (e);
@@ -66,9 +56,10 @@ int			main(void)
 
 	if (!(e = init_env()))
 		return (1);
-	draw_view(e);
 	//test_tex(e);
-	mlx_put_image_to_window(e->mlx, e->wnd, e->img->ptr, 0, 0);
+	mlx_hook(e->wnd, KEY_PRESS, KEY_PRESS_MASK, key_hook, e);
+	mlx_key_hook(e->wnd, key_hook, e);
+	mlx_expose_hook(e->wnd, refresh_window, e);
 	mlx_loop(e->mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 19:52:11 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/02 02:47:38 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/03 15:49:39 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,35 +25,10 @@ void		img_put_pixel(t_env *e, int x, int y, int color)
 		e->img->pxl[++byte] = color >> 16;
 	}
 }
-/*
-void		img_draw_line(t_env *e, int x, int y, int x2, int y2)
-{
-	t_line_data *l;
 
-	l = new_line_data(e, x, y, x2, y2);
-	while (42)
-	{
-		img_put_pixel(e,x, y, e->color);
-		if (x == x2 && y == y2)
-			break ;
-		l->e = l->err;
-		if (l->e > -l->dx)
-		{
-			l->err -= l->dy;
-			x += l->ix;
-		}
-		if (l->e < l->dy)
-		{
-			l->err += l->dy;
-			y += l->iy;
-		}
-	}
-	//free
-}*/
 void		calc_line_limits(t_env *e)
 {
 	e->line_h = (int) (WIN_H / e->perp_dist);
-//	printf("line h %d perp %f ", e->line_h, e->perp_dist);
 	e->line_lim[0] = -e->line_h / 2 + WIN_H / 2;
 	e->line_lim[1] = e->line_h / 2 + WIN_H / 2;
 	if (e->line_lim[0] < 0)
@@ -64,17 +39,23 @@ void		calc_line_limits(t_env *e)
 
 void		draw_view(t_env *e)
 {
+	static int count = 0;
+
 	e->screen_coord[0] = 0;
 	while (e->screen_coord[0] < WIN_W)
 	{
 		cast_ray(e, e->screen_coord[0]);
-		printf("cast_ray x = %d\n", e->screen_coord[0]);
+		//if (count == 5)
+		printf("cast_ray x = %d ", e->screen_coord[0]);
 		calc_line_limits(e);
+		//if (count == 5)
+		//{
 		printf("calc_line_limits [%d, %d]\n", e->line_lim[0], e->line_lim[1]);
 		draw_texture(e);
-	//	printf("draw_texture\n");
+		//}
 		e->screen_coord[0]++;
 	}
+	count++;
 }
 
 t_img		*new_img(t_env *e, int width, int height)
