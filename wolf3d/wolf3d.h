@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/28 22:22:40 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/03 16:42:08 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/07 22:59:37 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define WOLF3D_H
 # include "includes/libft.h"
 # include "includes/mlx.h"
-# include "includes/lodepng.h"
+# include "includes/get_next_line.h"
 # include <math.h>
 # include <fcntl.h>
 
-# define WIN_W 1800
-# define WIN_H 1800
+# define WIN_W 1000
+# define WIN_H 1000
 # define TEX_H 64
 # define TEX_W 64
-# define MAP_SIZE 50
+# define MAP_SIZE 30
 /*
  *KEYBOARD
  */
@@ -34,10 +34,13 @@
 # define LEFT 123
 # define UP 126
 # define DOWN 125
+# define R 15
+# define T 17
 
 typedef double		t_darr[2];
 typedef int			t_iarr[2];
-typedef int			t_textures[6][TEX_H * TEX_W];
+//typedef int			t_color[3];
+//typedef int			t_textures[6][TEX_H * TEX_W];
 
 typedef struct		s_img
 {
@@ -54,7 +57,7 @@ typedef struct		s_env
 	void		*wnd;
 	t_img		*img;
 	t_img		texture[8];
-	t_textures	textures;
+//	t_textures	textures;
 	int			map[MAP_SIZE][MAP_SIZE];
 	int			key_state[4];
 	t_darr		pos;
@@ -64,6 +67,8 @@ typedef struct		s_env
 	t_darr		ray_dir;
 	t_darr		side_dist;
 	t_darr		delta_dist;
+	t_darr		floor_lim;
+	t_darr		floor;
 	t_iarr		map_coord;
 	t_iarr		screen_coord;
 	t_iarr		step;
@@ -79,18 +84,24 @@ typedef struct		s_env
 	double		movespd;
 	double		rotspd;
 	double		wall_pos;
+	double		wall_dist;
+	double		current_dist;
 }					t_env;
 
 t_img			*new_img(t_env *e, int w, int h);
 void			img_put_pixel(t_env *e, int x, int y, int color);
-void			cast_ray(t_env *e, int x);
+void			cast_ray(t_env *e, int x, int ignore);
 void			draw_texture(t_env *e);
 void			draw_view(t_env *e);
+void			draw_pnj(t_env *e);
 void			init_texture(t_env *e);
-int				key_hook(int key, t_env *e);
+int				key_hook_press(int key, t_env *e);
+int				key_hook_release(int key, t_env *e);
 int				refresh_window(t_env *e);
 void			init_map(t_env *e);
-
+void			print_mini_map(t_env *e);
+//void			img_get_pixel(t_env *e, t_img *img, int x, int y, t_color *c);
+int			img_get_pixel(t_env *e, t_img *img, int x, int y);
 void			print_map(t_env *e);
 void			test_tex(t_env *e);
 #endif

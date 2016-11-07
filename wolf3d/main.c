@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/28 23:02:46 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/03 16:48:44 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/07 23:09:35 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
  *
  * fix les textures
  * add des mechants/objet (si color == noir ne pas display)
- * implementer les etats des touches key down et key up
  * implementer les stats des personnages
  * add une arme/tirer
- * action pour add/remove des blocs de la carte (!=1)
  *
  *CHASSE AU MALLOC ATTRAPEZ LES TOUS!!
  *
@@ -35,14 +33,15 @@ t_env		*init_env()
 		return (NULL);
 	if (!(e->wnd = mlx_new_window(e->mlx, WIN_W, WIN_H, "WOLF42D")))
 		return (NULL);
-	e->img = new_img(e, WIN_W, WIN_H);
-	e->pos[0] = 15;
-	e->pos[1] = 15;
-	e->dir[0] = 1;
-	e->dir[1] = 1;
-	e->plan[0] = 0;
+	if (!(e->img = new_img(e, WIN_W, WIN_H)))
+		return (NULL);
+	e->pos[0] = 2;
+	e->pos[1] = 6;
+	e->dir[0] = -1;
+	e->dir[1] = 0;
+	e->plan[0] = 0.00;
 	e->plan[1] = 0.66;
-	e->movespd = 0.3;
+	e->movespd = 0.1;
 	e->rotspd = 0.05;
 	e->key_state[0] = e->key_state[1] = e->key_state[2] = e->key_state[3] = 0;
 	init_map(e);
@@ -57,8 +56,10 @@ int			main(void)
 	if (!(e = init_env()))
 		return (1);
 	//test_tex(e);
-	mlx_hook(e->wnd, KEY_PRESS, KEY_PRESS_MASK, key_hook, e);
-	mlx_key_hook(e->wnd, key_hook, e);
+	mlx_loop_hook(e->mlx, refresh_window, e);
+	mlx_hook(e->wnd, KEY_PRESS, KEY_PRESS_MASK, key_hook_press, e);
+	mlx_hook(e->wnd, KEY_RELEASE, KEY_RELEASE_MASK, key_hook_release, e);
+	//mlx_key_hook(e->wnd, key_hook, e);
 	mlx_expose_hook(e->wnd, refresh_window, e);
 	mlx_loop(e->mlx);
 	return (0);

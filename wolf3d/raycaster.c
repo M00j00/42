@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 19:56:39 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/03 01:51:32 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/07 20:51:46 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void			cal_perp_wall_dist(t_env *e)
 				/ 2) / e->ray_dir[1];
 }
 
-void			cast_ray(t_env *e, int x)
+void			cast_ray(t_env *e, int x, int ignore)
 {
 	init_ray(e, x);
 	while (e->colision == 0)
@@ -82,8 +82,10 @@ void			cast_ray(t_env *e, int x)
 			e->map_coord[1] += e->step[1];
 			e->side = 1;
 		}
-		if (e->map[e->map_coord[0]][e->map_coord[1]] > 0)
+		if (e->map[e->map_coord[0]][e->map_coord[1]] > 0 && ignore == 1)
 			e->colision = 1;
+		//else if (e->map[e->map_coord[0]][e->map_coord[1]] < 0  )//&& ignore == 0)
+		//	e->colision = 2;
 	}
 	cal_perp_wall_dist(e);
 }
