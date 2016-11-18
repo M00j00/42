@@ -6,13 +6,13 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/06 05:45:55 by amanchon          #+#    #+#             */
-/*   Updated: 2016/09/29 02:41:45 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/17 04:49:08 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point2d	*new_2dpoint(int x, int y, int color)
+t_point2d			*new_2dpoint(int x, int y, int color)
 {
 	t_point2d		*p;
 
@@ -24,7 +24,7 @@ t_point2d	*new_2dpoint(int x, int y, int color)
 	return (p);
 }
 
-t_point3d	*new_3dpoint(int x, int y, int z)
+t_point3d			*new_3dpoint(int x, int y, int z)
 {
 	t_point3d		*p;
 
@@ -35,9 +35,11 @@ t_point3d	*new_3dpoint(int x, int y, int z)
 	p->z = z;
 	return (p);
 }
-int			get_color(int z)
+
+int					get_color(int z)
 {
 	int				color;
+
 	if (z <= 3)
 		color = 0x0D6386;
 	if (z > 3 && z <= 10)

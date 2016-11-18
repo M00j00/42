@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 17:37:27 by amanchon          #+#    #+#             */
-/*   Updated: 2016/02/10 17:30:32 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/17 04:26:33 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	*ft_memalloc(size_t size)
 
 	if (!(ret = malloc(size)))
 		return (NULL);
-	bzero(ret, size);
+	ft_bzero(ret, size);
 	return (ret);
 }

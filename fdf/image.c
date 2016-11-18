@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/15 17:05:08 by amanchon          #+#    #+#             */
-/*   Updated: 2016/09/29 04:41:43 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/17 04:47:05 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		img_put_pixel(t_env *e, t_point2d *p, int color)
 	int		pixel;
 
 	pixel = (p->y + e->yoff) * e->img->line_size
-		+ (e->img->bpp/8) * (p->x + e->xoff);
+		+ (e->img->bpp / 8) * (p->x + e->xoff);
 	if (p->y + e->yoff < W_HEIGHT && p->x + e->xoff < W_WIDTH
 			&& p->y + e->yoff > 0 && p->x + e->xoff > 0)
 	{

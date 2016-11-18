@@ -6,13 +6,13 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 07:52:43 by amanchon          #+#    #+#             */
-/*   Updated: 2016/10/05 18:53:46 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/17 04:18:33 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_line_data		*new_ldata(t_point2d a, t_point2d b)
+static t_line_data		*new_ldata(t_point2d a, t_point2d b)
 {
 	t_line_data		*l;
 
@@ -26,7 +26,7 @@ t_line_data		*new_ldata(t_point2d a, t_point2d b)
 	return (l);
 }
 
-void			draw_line(t_env *e, t_point2d a, t_point2d b)
+static void				draw_line(t_env *e, t_point2d a, t_point2d b)
 {
 	t_line_data		*l;
 
@@ -51,42 +51,42 @@ void			draw_line(t_env *e, t_point2d a, t_point2d b)
 			a.y += l->iy;
 		}
 	}
-	//free ldata
+	free(l);
 }
 
-void			get_scale(t_env *e)
+void					get_scale(t_env *e)
 {
 	e->scale = 0;
 	while (e->img->h / 2 > e->map->h * e->scale
 				&& e->img->w / 2 > e->map->w * e->scale
 				&& e->scale < SCALE_MAX)
 		e->scale += 1;
+	e->zscale = 1;
 }
 
-void			draw_image(t_env *e, t_point2d **p)
+void					draw_image(t_env *e)
 {
 	int				x;
 	int				y;
 
-	y = 0;
-	while (y < e->map->h)
+	map_to_2d(e);
+	y = -1;
+	while (++y < e->map->h)
 	{
-		x = 0;
-		while (x < e->map->w)
+		x = -1;
+		while (++x < e->map->w)
 		{
 			if (x == e->map->w - 1 && y == e->map->h - 1)
 				;
 			else if (x == e->map->w - 1)
-				draw_line(e, p[y][x], p[y + 1][x]);
+				draw_line(e, e->points[y][x], e->points[y + 1][x]);
 			else if (y == e->map->h - 1)
-				draw_line(e, p[y][x], p[y][x + 1]);
+				draw_line(e, e->points[y][x], e->points[y][x + 1]);
 			else
 			{
-				draw_line(e, p[y][x], p[y + 1][x]);
-				draw_line(e, p[y][x], p[y][x + 1]);
+				draw_line(e, e->points[y][x], e->points[y + 1][x]);
+				draw_line(e, e->points[y][x], e->points[y][x + 1]);
 			}
-			x++;
 		}
-		y++;
 	}
 }
