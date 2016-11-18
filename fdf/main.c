@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 00:20:12 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/17 06:16:05 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/18 02:35:45 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_env		*init_env(char *file)
 						* e->map->w)))
 			return (NULL);
 	get_scale(e);
-	e->type = 0;
+	e->type = 2;
 	e->yoff = e->img->h / 2;
 	e->xoff = e->img->w / 2;
 	return (e);

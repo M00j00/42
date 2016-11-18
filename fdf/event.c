@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/23 04:35:50 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/17 05:05:43 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/17 07:03:47 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void			offset_scale_managment(t_env *e, int keycode)
 		e->scale += 1;
 	if (keycode == 78 && e->scale >= SCALE_MIN)
 		e->scale -= 1;
-	if (keycode == 67 && e->zscale < 3)
+	if (keycode == 67 && e->zscale < SCALE_MAX)
 		e->zscale += 1;
 	if (keycode == 75 && e->zscale >= SCALE_MIN)
 		e->zscale -= 1;

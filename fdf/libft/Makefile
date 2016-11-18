@@ -6,7 +6,7 @@
 #    By: amanchon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/27 16:29:55 by amanchon          #+#    #+#              #
-#    Updated: 2016/04/03 14:16:15 by amanchon         ###   ########.fr        #
+#    Updated: 2016/11/18 04:24:34 by amanchon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ SRC		=	ft_bzero.c		\
 			ft_lstdel.c		\
 			ft_lstadd.c		\
 			ft_lstiter.c	\
-			ft_lstmap.c		
+			ft_lstmap.c		\
+			get_next_line.c
 
 OBJ		=	$(SRC:.c=.o)
 

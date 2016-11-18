@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/08 01:48:32 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/17 04:52:21 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/18 03:54:21 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,43 @@ static void			extract_nbr(char *str, int *arr)
 	return ;
 }
 
-static void			get_map_dim(int fd, int *height, int *width)
+static int			count_line_elem(char *line)
+{
+	int		i;
+	int		count;
+
+	i = 0;
+	count = 0;
+	while (line[i] != '\0')
+	{
+		if (ft_isdigit(line[i]))
+		{
+			while (line[i] != '\0' && !ft_isspace(line[i]))
+				i++;
+			count++;
+		}
+		else
+			i++;
+	}
+	return (count);
+}
+
+static int			get_map_dim(int fd, int *height, int *width)
 {
 	char	*line;
-	int		current_w;
-	int		i;
 
 	while (get_next_line(fd, &line) > 0)
 	{
 		*height += 1;
-		current_w = 0;
-		i = 0;
-		while (line[i] != '\0')
-		{
-			if (ft_isdigit(line[i]))
-			{
-				while (line[i] != '\0' && !ft_isspace(line[i]))
-					i++;
-				current_w += 1;
-			}
-			else
-				i++;
-		}
-		*width = current_w > *width ? current_w : *width;
+		if (count_line_elem(line) != *width && *width != 0)
+			return (0);
+		else
+			*width = count_line_elem(line);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);
 	close(fd);
+	return (1);
 }
 
 t_map				*get_map_data(char *filename)
@@ -93,8 +103,7 @@ t_map				*get_map_data(char *filename)
 		return (NULL);
 	if ((fd = open(filename, O_RDONLY)) <= 0)
 		return (NULL);
-	get_map_dim(fd, &h, &w);
-	if (!(m = new_map(h, w)))
+	if (!(get_map_dim(fd, &h, &w)) || !(m = new_map(h, w)))
 		return (NULL);
 	h = 0;
 	if ((fd = open(filename, O_RDONLY)) <= 0)

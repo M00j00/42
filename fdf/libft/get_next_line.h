@@ -6,18 +6,18 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/04 18:10:39 by amanchon          #+#    #+#             */
-/*   Updated: 2016/06/01 18:00:16 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/17 06:03:07 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include "libft/libft.h"
+# include "libft.h"
 
 # include <fcntl.h>
 
-# define BUFF_SIZE 12
-# define MAXFILE 2048
+# define BUFF_SIZE 2048
+# define MAXFILE 256
 
 typedef struct			s_storage
 {

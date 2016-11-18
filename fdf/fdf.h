@@ -6,7 +6,7 @@
 /*   By: amanchon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/05 00:19:47 by amanchon          #+#    #+#             */
-/*   Updated: 2016/11/17 04:59:48 by amanchon         ###   ########.fr       */
+/*   Updated: 2016/11/18 02:44:15 by amanchon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 # define FDF_H
 # include "includes/libft.h"
 # include "includes/mlx.h"
-# include "get_next_line.h"
+# include "libft/get_next_line.h"
 # define W_HEIGHT 1400
 # define W_WIDTH 1400
 # define SCALE_MAX 100
 # define SCALE_MIN 2
-# define PROJECTION 0.5
 
 typedef struct	s_img
 {
